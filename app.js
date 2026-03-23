@@ -7,6 +7,12 @@ const taskList = document.getElementById("task-list");
 
 let tasks = [];
 
+// SAVE to local storage
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// ADD TASK
 function addTask() {
   const name = taskNameInput.value.trim();
   const category = taskCategoryInput.value.trim();
@@ -26,6 +32,7 @@ function addTask() {
   };
 
   tasks.push(task);
+  saveTasks();
   displayTasks();
 
   taskNameInput.value = "";
@@ -34,16 +41,66 @@ function addTask() {
   taskStatusInput.value = "In Progress";
 }
 
+// REMOVE TASK
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  displayTasks();
+}
+
+// DISPLAY TASKS
 function displayTasks() {
   taskList.innerHTML = "";
 
-  tasks.forEach(function(task) {
+  tasks.forEach(function(task, index) {
     const li = document.createElement("li");
 
-    li.textContent = `${task.name} | ${task.category} | ${task.deadline} | ${task.status}`;
+    const taskText = document.createElement("span");
+    taskText.textContent = `${task.name} | ${task.category} | ${task.deadline}`;
+
+    // STATUS DROPDOWN
+    const statusSelect = document.createElement("select");
+
+    const option1 = document.createElement("option");
+    option1.value = "In Progress";
+    option1.textContent = "In Progress";
+
+    const option2 = document.createElement("option");
+    option2.value = "Completed";
+    option2.textContent = "Completed";
+
+    statusSelect.appendChild(option1);
+    statusSelect.appendChild(option2);
+
+    statusSelect.value = task.status;
+
+    statusSelect.addEventListener("change", function() {
+      tasks[index].status = statusSelect.value;
+      saveTasks();
+    });
+
+    // REMOVE BUTTON
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", function() {
+      removeTask(index);
+    });
+
+    li.appendChild(taskText);
+    li.appendChild(statusSelect);
+    li.appendChild(removeButton);
 
     taskList.appendChild(li);
   });
 }
 
+// BUTTON CLICK
 addTaskButton.addEventListener("click", addTask);
+
+// LOAD SAVED TASKS
+const savedTasks = localStorage.getItem("tasks");
+
+if (savedTasks) {
+  tasks = JSON.parse(savedTasks);
+  displayTasks();
+}
