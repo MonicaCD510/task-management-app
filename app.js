@@ -8,11 +8,21 @@ const taskList = document.getElementById("task-list");
 let tasks = [];
 
 function addTask() {
+  const name = taskNameInput.value.trim();
+  const category = taskCategoryInput.value.trim();
+  const deadline = taskDeadlineInput.value;
+  const status = taskStatusInput.value;
+
+  if (name === "" || category === "" || deadline === "") {
+    alert("Please fill in all fields");
+    return;
+  }
+
   const task = {
-    name: taskNameInput.value,
-    category: taskCategoryInput.value,
-    deadline: taskDeadlineInput.value,
-    status: taskStatusInput.value
+    name: name,
+    category: category,
+    deadline: deadline,
+    status: status
   };
 
   tasks.push(task);
@@ -29,7 +39,9 @@ function displayTasks() {
 
   tasks.forEach(function(task) {
     const li = document.createElement("li");
+
     li.textContent = `${task.name} | ${task.category} | ${task.deadline} | ${task.status}`;
+
     taskList.appendChild(li);
   });
 }
