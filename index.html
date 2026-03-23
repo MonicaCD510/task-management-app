@@ -8,11 +8,18 @@
 
   <h1>Task Management App</h1>
 
-  <input id="taskInput" placeholder="Enter a task">
+  <input id="task-name" placeholder="Task Name">
+  <input id="task-category" placeholder="Category">
+  <input id="task-deadline" type="date">
 
-  <button id="addTaskBtn">Add Task</button>
+  <select id="task-status">
+    <option value="In Progress">In Progress</option>
+    <option value="Completed">Completed</option>
+  </select>
 
-  <ul id="taskList"></ul>
+  <button id="add-task">Add Task</button>
+
+  <ul id="task-list"></ul>
 
   <script src="app.js"></script>
 

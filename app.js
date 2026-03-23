@@ -1,41 +1,37 @@
+const taskNameInput = document.getElementById("task-name");
+const taskCategoryInput = document.getElementById("task-category");
+const taskDeadlineInput = document.getElementById("task-deadline");
+const taskStatusInput = document.getElementById("task-status");
+const addTaskButton = document.getElementById("add-task");
+const taskList = document.getElementById("task-list");
+
 let tasks = [];
 
-let taskInput = document.getElementById("taskInput");
-let addTaskBtn = document.getElementById("addTaskBtn");
-let taskList = document.getElementById("taskList");
-
 function addTask() {
-  let taskText = taskInput.value.trim();
+  const task = {
+    name: taskNameInput.value,
+    category: taskCategoryInput.value,
+    deadline: taskDeadlineInput.value,
+    status: taskStatusInput.value
+  };
 
-  if (taskText === "") {
-    alert("Please enter a task.");
-    return;
-  }
-
-  tasks.push(taskText);
-  taskInput.value = "";
-
+  tasks.push(task);
   displayTasks();
+
+  taskNameInput.value = "";
+  taskCategoryInput.value = "";
+  taskDeadlineInput.value = "";
+  taskStatusInput.value = "In Progress";
 }
 
 function displayTasks() {
   taskList.innerHTML = "";
 
-  for (let i = 0; i < tasks.length; i++) {
-    let li = document.createElement("li");
-    li.textContent = tasks[i];
-
-    let deleteBtn = document.createElement("button");
-    deleteBtn.textContent = " Delete";
-
-    deleteBtn.addEventListener("click", function () {
-      tasks.splice(i, 1);
-      displayTasks();
-    });
-
-    li.appendChild(deleteBtn);
+  tasks.forEach(function(task) {
+    const li = document.createElement("li");
+    li.textContent = `${task.name} | ${task.category} | ${task.deadline} | ${task.status}`;
     taskList.appendChild(li);
-  }
+  });
 }
 
-addTaskBtn.addEventListener("click", addTask);
+addTaskButton.addEventListener("click", addTask);
