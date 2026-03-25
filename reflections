@@ -1,0 +1,7 @@
+During this project, one of the main challenges I faced was understanding how to connect JavaScript to the HTML and update the DOM correctly. I worked through this by creating functions to re-render the task list each time changes were made, which helped ensure the display stayed up to date.
+
+Another challenge was working with arrays and objects together, especially when storing and updating task data. I approached this by breaking the problem into smaller steps and focusing on how each part of the code contributed to the overall functionality.
+
+I also explored using local storage, even though it was not required, so that tasks would remain saved after refreshing the page. This gave me a better understanding of how data can persist in a web application.
+
+If I had more time, I would go back to the beginning of the class and review everything again at a slower pace so I can fully understand each concept.
