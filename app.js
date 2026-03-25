@@ -7,11 +7,6 @@ const taskList = document.getElementById("task-list");
 
 let tasks = [];
 
-// SAVE to local storage
-function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
 // ADD TASK
 function addTask() {
   const name = taskNameInput.value.trim();
@@ -32,7 +27,6 @@ function addTask() {
   };
 
   tasks.push(task);
-  saveTasks();
   displayTasks();
 
   taskNameInput.value = "";
@@ -44,7 +38,6 @@ function addTask() {
 // REMOVE TASK
 function removeTask(index) {
   tasks.splice(index, 1);
-  saveTasks();
   displayTasks();
 }
 
@@ -76,7 +69,6 @@ function displayTasks() {
 
     statusSelect.addEventListener("change", function() {
       tasks[index].status = statusSelect.value;
-      saveTasks();
     });
 
     // REMOVE BUTTON
@@ -96,11 +88,3 @@ function displayTasks() {
 
 // BUTTON CLICK
 addTaskButton.addEventListener("click", addTask);
-
-// LOAD SAVED TASKS
-const savedTasks = localStorage.getItem("tasks");
-
-if (savedTasks) {
-  tasks = JSON.parse(savedTasks);
-  displayTasks();
-}
